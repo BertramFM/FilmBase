@@ -15,6 +15,10 @@ public class Playlist implements Iterable<Film> {
         }
     }
 
+    public void removeFilm(Film film) {
+        films.remove(film);
+    }
+
     public Film playAndRemove() {
         return films.removeFirst();
     }
