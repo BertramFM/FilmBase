@@ -1,13 +1,18 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class Playlist {
+public class Playlist implements Iterable<Film> {
     private List<Film> films = new ArrayList<>();
 
     public void addFilm(Film film) {
-        films.add(film);
+        if (!hasFilm(film)) {
+            films.add(film);
+        } else {
+            System.out.println("movie " + film + " not added");
+        }
     }
 
     public Film playAndRemove() {
@@ -15,7 +20,15 @@ public class Playlist {
     }
 
     public Film nextMovie(){
-        return films.getFirst();
+        try {
+            return films.getFirst();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean hasNext(){
+        return !films.isEmpty();
     }
 
     public int getMoviePlaylist() {
@@ -28,5 +41,14 @@ public class Playlist {
 
     public void emptyMovieList (){
         films.clear();
+    }
+
+    public boolean hasFilm(Film film){
+        return films.contains(film);
+    }
+
+    @Override
+    public Iterator<Film> iterator() {
+        return films.iterator();
     }
 }

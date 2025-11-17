@@ -1,12 +1,14 @@
 package app;
 
 import data.Film;
+import data.Playlist;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class FilmBase {
-    private Collection<Film> allFilms = new ArrayList<>();
+    private List<Film> allFilms = new ArrayList<>();
 
     public FilmBase() {
     }
@@ -14,7 +16,22 @@ public class FilmBase {
     public void start() {
         System.out.println("FilmBasen er startet");
         initFilms();
-        printList(allFilms);
+        // printList(allFilms);
+        testPlaylist();
+    }
+
+    public void testPlaylist(){
+        System.out.println("========");
+        Playlist play = new Playlist();
+        play.addFilm(allFilms.get(1));
+        play.addFilm(allFilms.get(4));
+        play.addFilm(allFilms.get(7));
+
+        while(play.hasNext()){
+            System.out.println("Playing " + play.nextMovie());
+            play.playAndRemove();
+        }
+
     }
 
     private void initFilms() {
@@ -30,7 +47,7 @@ public class FilmBase {
         allFilms.add(new Film("Yankee Doodle Dandy",  1942));
     }
 
-    private void printList(Collection<Film> films) {
+    private void printList(Iterable<Film> films) {
         for (Film f : films) {
             System.out.println(f);
         }
